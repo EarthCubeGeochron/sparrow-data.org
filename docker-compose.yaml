@@ -1,7 +1,7 @@
 version: "3"
 services:
   gateway:
-    image: nginx
+    image: staticfloat/nginx-certbot
     ports:
       - 8080:80
       - 8443:443
