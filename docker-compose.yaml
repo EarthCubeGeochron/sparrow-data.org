@@ -1,0 +1,10 @@
+version: "3"
+services:
+  gateway:
+    image: nginx
+    ports:
+      - 8080:80
+      - 8443:443
+    volumes:
+      - ./htdocs:/www/data
+      - ./conf.d:/etc/nginx/conf.d/
