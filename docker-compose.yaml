@@ -1,16 +1,17 @@
 version: "3"
 services:
   gateway:
-    # Temporarily (hopefully) maintain our own fork
-    # should eventually revert to the below
-    # image: staticfloat/nginx-certbot
-    build: "https://github.com/UW-Macrostrat/docker-nginx-certbot.git#:src"
+    restart: unless-stopped
+    image: staticfloat/nginx-certbot:latest
     ports:
       - 8080:80
       - 8443:443
     volumes:
       - ./htdocs:/www/data
       - ./conf.d:/etc/nginx/user.conf.d:ro
+      - letsencrypt:/etc/letsencrypt
     environment:
       - CERTBOT_EMAIL=daven.quinn@wisc.edu
+volumes:
+  letsencrypt:
 

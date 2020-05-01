@@ -1,0 +1,21 @@
+# Docker compose file to override some settings of a Sparrow
+# instance to connect to the sparrow-data.org network.
+#
+# We could probably find a better way to pull the test labs
+# into the main repository to standardize this.
+#
+version: "3.4"
+services:
+  backend:
+    # TTY: true seems to cause some http timeouts
+    # https://github.com/docker/compose/issues/3633
+    tty: false
+  gateway:
+    networks:
+      - default
+      - sparrowdataorg_default
+networks:
+  default:
+    driver: bridge
+  sparrowdataorg_default:
+    external: true
