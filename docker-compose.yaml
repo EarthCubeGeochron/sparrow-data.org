@@ -7,11 +7,27 @@ services:
       - 8080:80
       - 8443:443
     volumes:
-      - ./htdocs:/www/data
+      - htdocs:/www/data
       - ./conf.d:/etc/nginx/user.conf.d:ro
       - letsencrypt:/etc/letsencrypt
     environment:
       - CERTBOT_EMAIL=daven.quinn@wisc.edu
+  webhook:
+    restart: unless-stopped
+    image: staticfloat/docker-webhook
+    volumes:
+      - ./:/code
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - WEBHOOK_SECRET
+      - WEBHOOK_HOOKS_DIR=/code/hooks
+      - WEBHOOK_BRANCH_LIST=master,docs
+  frontend:
+    image: docker.pkg.github.com/EarthCubeGeochron/Sparrow/sparrow-documentation-site
+    volumes:
+      htdocs: /public
+    command: npm run build
 volumes:
   letsencrypt:
+  htdocs:
 
