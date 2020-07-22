@@ -7,7 +7,6 @@ services:
       - 8080:80
       - 8443:443
     volumes:
-      - htdocs:/www/data
       - ./conf.d:/etc/nginx/user.conf.d:ro
       - letsencrypt:/etc/letsencrypt
     environment:
@@ -28,10 +27,6 @@ services:
       - WEBHOOK_BRANCH_LIST=master,docs
   frontend:
     image: docker.pkg.github.com/earthcubegeochron/sparrow/sparrow-documentation-site:latest
-    volumes:
-      - htdocs:/public
-    command: npm run build
 volumes:
   letsencrypt:
-  htdocs:
 
