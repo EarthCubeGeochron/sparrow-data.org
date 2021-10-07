@@ -11,8 +11,11 @@ services:
       - letsencrypt:/etc/letsencrypt
     environment:
       - CERTBOT_EMAIL
+    depends_on:
+      - docs
   docs:
     image: ghcr.io/earthcubegeochron/sparrow/documentation-site:latest
+    expose: [3000]
 volumes:
   letsencrypt:
 
