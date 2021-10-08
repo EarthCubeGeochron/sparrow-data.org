@@ -2,12 +2,12 @@ version: "3"
 services:
   gateway:
     restart: unless-stopped
-    image: staticfloat/nginx-certbot:latest
+    image: jonasal/nginx-certbot:latest
     ports:
       - 8080:80
       - 8443:443
     volumes:
-      - ./conf.d:/etc/nginx/user.conf.d:ro
+      - ./conf.d:/etc/nginx/user_conf.d:ro
       - letsencrypt:/etc/letsencrypt
     environment:
       - CERTBOT_EMAIL
