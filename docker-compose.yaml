@@ -14,7 +14,7 @@ services:
     depends_on:
       - docs
   docs:
-    image: ghcr.io/earthcubegeochron/sparrow/documentation-site:latest
+    image: ghcr.io/earthcubegeochron/sparrow/documentation-site:main
     expose: [3000]
   watchtower:
     image: containrrr/watchtower
