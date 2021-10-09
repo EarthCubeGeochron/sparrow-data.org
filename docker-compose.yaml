@@ -2,7 +2,7 @@ version: "3"
 services:
   gateway:
     restart: unless-stopped
-    image: jonasal/nginx-certbot:latest
+    image: docker.io/jonasal/nginx-certbot:latest
     ports:
       - 8080:80
       - 8443:443
@@ -16,6 +16,12 @@ services:
   docs:
     image: ghcr.io/earthcubegeochron/sparrow/documentation-site:latest
     expose: [3000]
+  watchtower:
+    image: containrrr/watchtower
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /root/.docker/config.json:/config.json
+    command: --interval 30
 volumes:
   letsencrypt:
 
