@@ -12,7 +12,8 @@ COPY ./docs/package*.json /docs/
 RUN npm install
 
 COPY ./docs/ /docs/
-COPY ./get-sparrow.sh /docs/public/
+# Put the "get-sparrow.sh" script in the root of the site
+COPY ./Sparrow/get-sparrow.sh /docs/public/
 
 ENV NODE_ENV production
 
