@@ -3,6 +3,8 @@
 
 FROM node:16
 
+RUN yarn set version berry
+
 WORKDIR /docs
 # Copy files needed for installation
 COPY ./docs/package*.json ./docs/yarn* /docs/
@@ -21,4 +23,4 @@ RUN yarn run build
 
 EXPOSE 3000
 
-CMD ["npm", "start"]
+CMD ["yarn", "run", "start"]
