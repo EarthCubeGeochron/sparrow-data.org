@@ -1,12 +1,4 @@
 #!/bin/bash
 
-set -a # automatically export all variables
-source .env
-set +a
-
-echo $GITHUB_TOKEN \
-| docker login docker.pkg.github.com -u $GITHUB_ACTOR --password-stdin
-
-docker-compose pull frontend
 docker-compose up --build --force-recreate -d
 docker-compose logs -f
