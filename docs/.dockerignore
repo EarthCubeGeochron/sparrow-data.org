@@ -1,0 +1,9 @@
+__old
+.next
+.ci
+.docusaurus
+Dockerfile
+node_modules
+
+.yarn
+.pnp*
