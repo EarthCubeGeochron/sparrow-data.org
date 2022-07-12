@@ -24,7 +24,7 @@ jobs:
         uses: docker/metadata-action@v3
         id: meta
         with:
-          images: ghcr.io/earthcubegeochron/sparrow/documentation-site
+          images: ghcr.io/earthcubegeochron/sparrow-data.org/docs-site
       - name: Build and push website image
         uses: docker/build-push-action@v2
         with:
@@ -33,6 +33,6 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-          cache-from: type=registry,ref=ghcr.io/earthcubegeochron/sparrow/documentation-site:latest
+          cache-from: type=registry,ref=ghcr.io/earthcubegeochron/sparrow-data.org/docs-site:latest
           cache-to: type=inline
 
