@@ -15,6 +15,7 @@ services:
       - docs
   docs:
     image: ghcr.io/earthcubegeochron/sparrow/documentation-site:main
+    build: docs
     expose: [3000]
   watchtower:
     image: containrrr/watchtower
