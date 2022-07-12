@@ -1,6 +1,6 @@
 {
   "name": "sparrow-docs",
-  "version": "0.1.0",
+  "version": "2.0.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -14,10 +14,11 @@
     "@macrostrat/revision-info-webpack": "^1.0.0",
     "@macrostrat/ui-components": "^1.0.2",
     "@mdx-js/loader": "^1.6.22",
-    "@next/mdx": "^11.1.2",
+    "@mdx-js/react": "^1",
+    "@next/mdx": "12",
     "classnames": "^2.3.1",
     "new-github-issue-url": "^0.2.1",
-    "next": "11.1.2",
+    "next": "12",
     "react": "17.0.2",
     "react-archer": "^3.2.2",
     "react-dom": "17.0.2",
@@ -29,6 +30,7 @@
     "stylus": "^0.55.0"
   },
   "devDependencies": {
+    "@types/node": "^18.0.3",
     "@types/react": "17.0.19",
     "eslint": "7.32.0",
     "eslint-config-next": "11.1.2",
