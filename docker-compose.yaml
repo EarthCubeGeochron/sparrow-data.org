@@ -20,7 +20,7 @@ services:
     image: containrrr/watchtower
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-    command: --interval 30 sparrowdataorg_docs_1
+    command: --interval 30 sparrow-dataorg_docs_1
 volumes:
   letsencrypt:
 
