@@ -32,3 +32,13 @@ yarn-error.log*
 
 # vercel
 .vercel
+
+# Yarn 2 pnp
+# We are using Yarn v2+, WITHOUT "Zero-install" because it is 
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
