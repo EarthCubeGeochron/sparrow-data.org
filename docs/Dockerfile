@@ -7,7 +7,7 @@ RUN yarn set version berry
 
 WORKDIR /docs
 # Copy files needed for installation
-COPY ./docs/package*.json ./docs/yarn* /docs/
+COPY ./docs/package*.json ./docs/yarn.lock ./docs/.yarn /docs/
 
 # Install node modules
 # Should use `npm ci` but there are errors

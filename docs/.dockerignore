@@ -5,5 +5,7 @@ __old
 Dockerfile
 node_modules
 
-.yarn
+.yarn/cache
+.yarn/unplugged
+.yarn/install-state.gz
 .pnp*
