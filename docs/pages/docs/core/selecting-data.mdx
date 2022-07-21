@@ -1,0 +1,111 @@
+There are several ways to get data out of Sparrow's analytical schemas.
+Sample information can be extracted from Sparrow's web API, through
+Sparrow's SQLAlchemy ORM, or using custom SQL queries.
+
+This is a SQL query to get data points matching the parameter '4He' and lab_id '22-00001'
+from the database:
+
+```sql
+SELECT * FROM datum
+JOIN analysis ON analysis.id = datum.analysis
+JOIN session ON session.id = analysis.session_id
+JOIN sample ON sample.id = session.sample_id
+JOIN datum_type ON datum_type.id = datum.type
+WHERE sample.lab_id = '22-00001'
+  AND datum_type.parameter = '4He'
+```
+
+The same query can be constructed in Python using the SQLAlchemy ORM bundled with Sparrow:
+
+```python
+db = sparrow.get_database()
+Session = db.model.session
+Sample = db.model.sample
+Analysis = db.model.analysis
+Datum = db.model.datum
+DatumType = db.model.datum_type
+res = (self.db.session.query(Datum)
+       .join(Analysis)
+       .join(Session)
+       .join(Sample)
+       .join(DatumType)
+       .filter(Sample.lab_id == '22-00001')
+       .filter(DatumType.parameter == "4He")
+       .all())
+```
+
+This does literally the same thing as the SQL query above.
+SQLAlchemy is nice because
+it generally works out which foreign key columns to join on.
+However, it is sometimes harder to get exactly the columns you want.
+Here's an example that selects all data for a single sample:
+
+```sql
+SELECT parameter, unit, value FROM datum
+JOIN analysis ON analysis.id = datum.analysis
+JOIN session ON session.id = analysis.session_id
+JOIN sample ON sample.id = session.sample_id
+JOIN datum_type ON datum_type.id = datum.type
+WHERE sample.lab_id = '22-00001'
+ORDER BY unit DESC
+```
+
+This query yields the following results:
+
+<table>
+  <tr>
+    <th>parameter</th>
+    <th>unit</th>
+    <th>value</th>
+  </tr>
+  <tr>
+    <td>Length 1</td>
+    <td>μm</td>
+    <td>84</td>
+  </tr>
+  <tr>
+    <td>Equivalent spherical radius (±2σ)</td>
+    <td>μm</td>
+    <td>38.02170194141583</td>
+  </tr>
+  <tr>
+    <td>Width 2</td>
+    <td>μm</td>
+    <td>71.3</td>
+  </tr>
+  <tr>
+    <td>Length 2</td>
+    <td>μm</td>
+    <td>86</td>
+  </tr>
+  <tr>
+    <td>Width 1</td>
+    <td>μm</td>
+    <td>73.2</td>
+  </tr>
+  <tr>
+    <td>Dimensional mass (±2σ)</td>
+    <td>μg</td>
+    <td>1.41961152</td>
+  </tr>
+  <tr>
+    <td>147Sm Ft (±2σ)</td>
+    <td></td>
+    <td>0.8868384844512391</td>
+  </tr>
+  <tr>
+    <td>232Th Ft (±2σ)</td>
+    <td></td>
+    <td>0.6147605480476799</td>
+  </tr>
+  <tr>
+    <td>235U Ft (±2σ)</td>
+    <td></td>
+    <td>0.6214887047633989</td>
+  </tr>
+  <tr>
+    <td>238U Ft (±2σ)</td>
+    <td></td>
+    <td>0.6673083165558419</td>
+  </tr>
+</table>
