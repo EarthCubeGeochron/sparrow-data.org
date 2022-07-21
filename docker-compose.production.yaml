@@ -1,0 +1,29 @@
+version: "3"
+services:
+  gateway:
+    restart: unless-stopped
+    image: docker.io/jonasal/nginx-certbot:latest
+    ports:
+      - 8080:80
+      - 8443:443
+    volumes:
+      - ./conf.d:/etc/nginx/user_conf.d:ro
+      - letsencrypt:/etc/letsencrypt
+    environment:
+      - CERTBOT_EMAIL
+    depends_on:
+      - docs
+  docs:
+    image: ghcr.io/earthcubegeochron/sparrow-data.org/docs-site:main
+    build:
+      context: .
+      dockerfile: ./docs/Dockerfile
+    expose: [3000]
+  watchtower:
+    image: containrrr/watchtower
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    command: --interval 30 sparrow-dataorg_docs_1
+volumes:
+  letsencrypt:
+
