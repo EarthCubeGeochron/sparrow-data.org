@@ -11,7 +11,7 @@ COPY ./docs/package*.json ./docs/yarn* /docs/
 
 # Install node modules
 # Should use `npm ci` but there are errors
-RUN yarn
+RUN yarn install
 
 COPY ./docs/ /docs/
 # Put the "get-sparrow.sh" script in the root of the site
