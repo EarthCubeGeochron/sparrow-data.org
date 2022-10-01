@@ -1,0 +1,10 @@
+docs/__old
+docs/.next
+docs/.ci
+docs/Dockerfile
+docs/node_modules
+
+docs/.yarn/cache
+docs/.yarn/unplugged
+docs/.yarn/install-state.gz
+docs/.pnp*
