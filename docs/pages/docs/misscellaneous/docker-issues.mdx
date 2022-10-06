@@ -4,8 +4,42 @@ Docker gotchas
 
 import { DocsPage } from "components";
 
-Docker is a complex system for managing containers. There are several gotchas you might encounter:
+Docker makes it relatively easy to work with simple installations of Sparrow, but it comes with
+a lot of internal complexity. This is usually well-hidden, but sometimes problems that are difficult to debug
+can arise. Here is some troubleshooting advice.
 
-If you run into errors such as "no space left on device", the likely cause is that Docker has run out of space to organize its images. This can be solved using `docker system prune` which will remove all unused containers and images while ignoring docker volumes \(database\).
+Errors that mention containers (e.g. "container not found") are usually due to a problem with the Docker daemon.
+Here's an example:
+
+```
+ERROR: for backend  Cannot create container for service backend:
+  failed to mkdir /var/lib/docker/volumes/srcroot_runtime_data/_data/lock: mkdir
+  /var/lib/docker/volumes/srcroot_runtime_data/_data/lock: file exists
+```
+
+If you run into errors such as "no space left on device", the likely cause is
+that Docker has run out of space to organize its images. This can be solved
+using `docker system prune` which will remove all unused containers and images
+while ignoring docker volumes (including the Sparrow database).
+
+## Troubleshooting techniques
+
+- Restart the Docker daemon. This can be done by running `sudo service docker restart`. If you're
+  using Docker Desktop, you can restart the daemon by
+  selecting "Restart" at the application's menu.
+- Check space given to Docker resources. Docker maintains a maximum size that can be taken up by images
+  and data. If you're using Docker Desktop, you can check the
+  "Resources" tab in the application's menu. Otherwise, you can use `docker system df` to
+  check disk usage.
+- Clean up unused resources. You can run `docker system prune` to remove all unused containers and images.
+  This will not remove Sparrow's database, which is stored in a Docker volume.
+- If you want to remove volumes, you can run `docker system prune --volumes` **while Sparrow is running**. In-use volumes (e.g., the database)
+  will be ignored.
+- Docker Desktop now allows you to manage volumes from its user interface. This allows you to delete orphaned data that may be taking up a lot of space.
+  You can also remove the Sparrow database entirely if you want to start from scratch.
+
+![Docker Desktop resources settings](https://sparrow-documentation-assets.s3.amazonaws.com/images/troubleshooting/docker/docker-desktop-resources-settings.png)
+
+![Docker Desktop volume management](https://sparrow-documentation-assets.s3.amazonaws.com/images/troubleshooting/docker/docker-desktop-volume-management.png)
 
 export default DocsPage;
