@@ -19,6 +19,7 @@ COPY ./Sparrow/get-sparrow.sh /docs/public/
 
 ENV NODE_ENV production
 
+RUN yarn install
 RUN yarn run build
 
 EXPOSE 3000
